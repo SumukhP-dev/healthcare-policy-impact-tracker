@@ -105,11 +105,11 @@ const getCohsDataColor = (percentChange: number) => {
 
 const MapChart = () => {
   const [mortalityData] = useState(getMortalityDataDetails());
-  const [infantMortalityData] = useState(
-    getInfantMortalityDataDetails()
-  );
+  const [infantMortalityData] = useState(getInfantMortalityDataDetails());
   const [cohsData] = useState(getCohsDataDetails());
-  const statistics: string = useSelector((state: RootState) => state.statistics.value);
+  const statistics: string = useSelector(
+    (state: RootState) => state.statistics.value
+  );
   const year = useSelector((state: RootState) => state.year.value);
 
   useEffect(() => {
@@ -257,17 +257,18 @@ const MapChart = () => {
     console.log("Setting percent data for: ", countyName);
 
     if (statistics === "Mortality") {
+      let countySelected: boolean = false;
+
       mortalityData.find((d) => {
         if (d.hasOwnProperty(countyName)) {
-          console.log(
-            "Found county in CountyOrganizedHealthSystem data:",
-            countyName
-          );
+          countySelected = true;
+
+          console.log("Found county in Mortality data:", countyName);
 
           d[countyName].find((item) => {
             if (item.Years == year) {
               console.log(
-                "CountyOrganizedHealthSystem value for",
+                "Mortality value for",
                 countyName,
                 "in year",
                 year,
@@ -276,24 +277,32 @@ const MapChart = () => {
               );
 
               dispatch(
-                setPercent(item != null ? item["% Change"] + "%" : "null")
+                setPercent(
+                  item != null && item["% Change"] != null
+                    ? item["% Change"]
+                    : null
+                )
               );
             }
           });
         }
       });
+
+      if (!countySelected) {
+        dispatch(setPercent(null));
+      }
     } else if (statistics === "InfantMortality") {
+      let countySelected: boolean = false;
+
       infantMortalityData.find((d) => {
         if (d.hasOwnProperty(countyName)) {
-          console.log(
-            "Found county in CountyOrganizedHealthSystem data:",
-            countyName
-          );
+          countySelected = true;
+          console.log("Found county in InfantMortality data:", countyName);
 
           d[countyName].find((item) => {
             if (item.Years == year) {
               console.log(
-                "CountyOrganizedHealthSystem value for",
+                "InfantMortality value for",
                 countyName,
                 "in year",
                 year,
@@ -302,15 +311,26 @@ const MapChart = () => {
               );
 
               dispatch(
-                setPercent(item != null ? item["% Change"] + "%" : "null")
+                setPercent(
+                  item != null && item["% Change"] != null
+                    ? item["% Change"]
+                    : null
+                )
               );
             }
           });
         }
       });
+
+      if (!countySelected) {
+        dispatch(setPercent(null));
+      }
     } else if (statistics === "CountyOrganizedHealthSystem") {
+      let countySelected: boolean = false;
+
       cohsData.find((d) => {
         if (d.hasOwnProperty(countyName)) {
+          countySelected = true;
           console.log(
             "Found county in CountyOrganizedHealthSystem data:",
             countyName
@@ -328,14 +348,21 @@ const MapChart = () => {
               );
 
               dispatch(
-                setPercent(item != null ? item["% Change"] + "%" : "null")
+                setPercent(
+                  item != null && item["% Change"] != null
+                    ? item["% Change"]
+                    : null
+                )
               );
             }
           });
         }
       });
-    }
 
+      if (!countySelected) {
+        dispatch(setPercent(null));
+      }
+    }
     console.log("County set to:", countyName);
   };
 
@@ -370,8 +397,7 @@ const MapChart = () => {
                         statistics
                       );
                     }}
-                    onMouseLeave={() => {
-                    }}
+                    onMouseLeave={() => {}}
                     style={{
                       default: {
                         fill: fillColor(
