@@ -1,4 +1,4 @@
-# Healthcare_Policy_Impact_Tracker
+# Healthcare Policy Impact Tracker
 
 ## Project Summary
 - **Goal:** Analyze the impact of California healthcare policies on public health outcomes.  
@@ -61,5 +61,6 @@ Go to https://healthcare-policy-impact-tracker-3partlbri-sumukh-ps-projects.verc
 ### How to Find
 
 All the various Figma designs are contained in the figma-designs folder.
+
 
 
