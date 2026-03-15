@@ -49,7 +49,7 @@ Install the Node.js software.
 Change directory to frontend-next-webapp\my-app. Then run the npm install and npm run dev commands. Then go to localhost:3000 and explore the interactive diagram.
 
 ### How to Visit
-Go to https://healthcare-policy-impact-tracker-3partlbri-sumukh-ps-projects.vercel.app/
+Go to https://healthcare-policy-impact-tracker.vercel.app/
 
 ### Screens & Demo
 ![Screenshot Placeholder](frontend-next-webapp/my-app/frontend-images/image1.png)
